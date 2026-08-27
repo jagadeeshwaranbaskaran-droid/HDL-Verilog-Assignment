@@ -1,28 +1,31 @@
 `timescale 1ns/1ps
 
-module tb_half_adder;
+module tb_mux2to1;
 
-reg A, B;
-wire Sum, Carry;
+reg I0, I1, S;
+wire Y;
 
-half_adder dut (
-    .A(A),
-    .B(B),
-    .Sum(Sum),
-    .Carry(Carry)
+mux2to1 dut (
+    .I0(I0),
+    .I1(I1),
+    .S(S),
+    .Y(Y)
 );
 
 initial begin
     $dumpfile("dump.vcd");
-    $dumpvars(0, tb_half_adder);
+    $dumpvars(0, tb_mux2to1);
 
-    $monitor("Time=%0t | A=%b B=%b | Sum=%b Carry=%b",
-             $time, A, B, Sum, Carry);
+    $monitor("Time=%0t | I0=%b I1=%b S=%b | Y=%b",
+             $time, I0, I1, S, Y);
 
-    A = 0; B = 0;
-    #10 A = 0; B = 1;
-    #10 A = 1; B = 0;
-    #10 A = 1; B = 1;
+    I0=0; I1=0; S=0;
+    #10 I0=0; I1=1; S=0;
+    #10 I0=0; I1=1; S=1;
+    #10 I0=1; I1=0; S=0;
+    #10 I0=1; I1=0; S=1;
+    #10 I0=1; I1=1; S=0;
+    #10 I0=1; I1=1; S=1;
 
     #10 $finish;
 end

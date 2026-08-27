@@ -1,13 +1,12 @@
 `timescale 1ns/1ps
 
-module half_adder (
-    input A,
-    input B,
-    output Sum,
-    output Carry
+module mux2to1 (
+    input I0,
+    input I1,
+    input S,
+    output Y
 );
 
-xor (Sum, A, B);
-and (Carry, A, B);
+assign Y = S ? I1 : I0;
 
 endmodule
